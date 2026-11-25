@@ -1,12 +1,11 @@
 import React from 'react';
-import { Ship, MessageCircle, Phone, MapPin, ShieldCheck, FileText, Settings, ArrowUp } from 'lucide-react';
+import { Ship, MessageCircle, Phone, Settings, ArrowUp } from 'lucide-react';
 
 interface FooterProps {
   onOpenAdmin: () => void;
-  onOpenBibliography: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, onOpenBibliography }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -15,25 +14,29 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, onOpenBibliography 
   const whatsappUrl = "https://wa.me/56990117784?text=Hola,%20deseo%20informaci%C3%B3n%20sobre%20importaciones%20grupales";
 
   return (
-    <footer className="bg-slate-900 text-slate-400 border-t border-slate-800 text-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-10">
+    <footer className="bg-nae-dark text-slate-400 border-t border-slate-800 text-xs">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Brand Info */}
-          <div className="lg:col-span-2 space-y-3">
+          <div className="space-y-3">
             <div className="flex items-center space-x-2.5">
-              <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white">
+              <div className="w-8 h-8 rounded-md bg-nae-blue flex items-center justify-center text-white">
                 <Ship className="w-4 h-4" />
               </div>
               <span className="text-base font-black tracking-tight text-white">
-                GRUPO<span className="text-blue-400">IMPORTA</span>
+                GRUPO<span className="text-sky-400">IMPORTA</span>
               </span>
             </div>
             
-            <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
-              Especialistas en importaciones grupales y consolidación marítima (LCL) desde China. Optimizamos costos de transporte y garantizamos despacho aduanero 100% formal a tu nombre.
+            <p className="text-slate-400 text-xs leading-relaxed">
+              Consolidación marítima (LCL) y compras grupales desde China. Optimizamos fletes internacionales y gestionamos desaduanamiento 100% formal a tu nombre.
             </p>
+          </div>
 
-            <div className="pt-1 flex flex-col gap-1 text-slate-300">
+          {/* Contact Direct */}
+          <div className="space-y-2">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Atención Directa</h4>
+            <div className="space-y-1.5 text-slate-300">
               <a 
                 href={whatsappUrl}
                 target="_blank"
@@ -45,30 +48,18 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, onOpenBibliography 
               </a>
               <a 
                 href="tel:+56990117784"
-                className="flex items-center gap-2 hover:text-blue-400 transition"
+                className="flex items-center gap-2 hover:text-white transition"
               >
-                <Phone className="w-4 h-4 text-blue-400" />
-                <span>Teléfono directo: <strong>{phoneNumber}</strong></span>
+                <Phone className="w-4 h-4 text-sky-400" />
+                <span>Celular: <strong>{phoneNumber}</strong></span>
               </a>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="space-y-2.5">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Navegación</h4>
-            <ul className="space-y-1.5">
-              <li><a href="#como-funciona" className="hover:text-white transition">Cómo Funciona LCL</a></li>
-              <li><a href="#beneficios" className="hover:text-white transition">Ventajas & Ahorro</a></li>
-              <li><a href="#calculadora" className="hover:text-white transition">Calculadora CBM</a></li>
-              <li><a href="#zarpes" className="hover:text-white transition">Próximos Zarpes</a></li>
-              <li><a href="#cotizador" className="hover:text-white transition">Cotizar Carga</a></li>
-            </ul>
-          </div>
-
           {/* Logistics Network */}
-          <div className="space-y-2.5">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Red en Origen</h4>
-            <ul className="space-y-1.5 text-slate-400">
+          <div className="space-y-2">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Bodegas en Origen</h4>
+            <ul className="space-y-1 text-slate-400">
               <li>📍 Ningbo (Beilun Logistics Hub)</li>
               <li>📍 Guangzhou (Baiyun District)</li>
               <li>📍 Yiwu (International Trade City)</li>
@@ -76,25 +67,16 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, onOpenBibliography 
             </ul>
           </div>
 
-          {/* Direct Access & Admin */}
-          <div className="space-y-2.5">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Acceso & Fuentes</h4>
-            <div className="space-y-2">
-              <button
-                onClick={onOpenBibliography}
-                className="w-full text-left py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-blue-300 border border-slate-700 flex items-center gap-1.5 transition"
-              >
-                <FileText className="w-3.5 h-3.5" />
-                Bibliografía & Fuentes Web
-              </button>
-              <button
-                onClick={onOpenAdmin}
-                className="w-full text-left py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center gap-1.5 transition"
-              >
-                <Settings className="w-3.5 h-3.5" />
-                Panel Admin (Leads & Slider)
-              </button>
-            </div>
+          {/* Admin & Shortcuts */}
+          <div className="space-y-2">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Administración</h4>
+            <button
+              onClick={onOpenAdmin}
+              className="py-1.5 px-3 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 border border-white/20 flex items-center gap-1.5 transition text-xs"
+            >
+              <Settings className="w-3.5 h-3.5" />
+              Panel Admin (Leads & Slider)
+            </button>
           </div>
         </div>
 

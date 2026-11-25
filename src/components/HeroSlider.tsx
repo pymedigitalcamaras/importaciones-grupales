@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, ArrowRight, ShieldCheck, Box, Anchor, MessageCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MessageCircle, ArrowRight, ShieldCheck, Box, Anchor } from 'lucide-react';
 import { SlideItem } from '../types';
 
 interface HeroSliderProps {
@@ -21,8 +21,6 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ slides }) => {
 
   if (activeSlides.length === 0) return null;
 
-  const current = activeSlides[currentIndex] || activeSlides[0];
-
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev - 1 + activeSlides.length) % activeSlides.length);
   };
@@ -33,7 +31,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ slides }) => {
 
   return (
     <div 
-      className="relative w-full h-[46vh] sm:h-[48vh] min-h-[350px] max-h-[440px] bg-slate-100 overflow-hidden select-none border-b border-slate-200"
+      className="relative w-full h-[42vh] sm:h-[46vh] min-h-[330px] max-h-[410px] bg-nae-dark overflow-hidden select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -47,65 +45,68 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ slides }) => {
               isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
             }`}
           >
-            {/* Bright, Natural Daylight Photography */}
+            {/* Natural Daylight Industrial Photography (No artificial lights or sun flares) */}
             <img
               src={slide.image_url}
               alt={slide.title}
               className="w-full h-full object-cover object-center"
             />
             
-            {/* Soft, clean daylight overlay (white-to-transparent gradient for crisp text readability) */}
-            <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-transparent sm:to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-transparent to-transparent sm:hidden" />
+            {/* NAE Platform Gradient Overlay (Navy #072a42 gradient for crisp typography) */}
+            <div 
+              className="absolute inset-0" 
+              style={{
+                background: 'linear-gradient(90deg, rgba(7,42,66,.88) 0%, rgba(7,42,66,.65) 55%, rgba(7,42,66,.15) 100%)'
+              }}
+            />
             
-            {/* Slide Content */}
+            {/* Slide Content: NAE Style (Eyebrow, Title, Subtitle, CTA) */}
             <div className="relative z-20 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
-              <div className="max-w-xl text-left space-y-3 bg-white/40 sm:bg-transparent p-4 sm:p-0 rounded-2xl backdrop-blur-xs sm:backdrop-blur-none">
+              <div className="max-w-2xl text-left space-y-2.5">
                 {slide.tag && (
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wider uppercase bg-blue-100 text-blue-800 border border-blue-200">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                  <div className="inline-block text-[11px] font-bold tracking-widest uppercase text-sky-300">
                     {slide.tag}
                   </div>
                 )}
                 
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight tracking-tight">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight tracking-tight drop-shadow-xs">
                   {slide.title}
                 </h1>
                 
-                <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal line-clamp-2 sm:line-clamp-none">
+                <p className="text-xs sm:text-sm text-slate-100 leading-relaxed font-normal max-w-xl">
                   {slide.subtitle}
                 </p>
 
-                <div className="pt-1 flex flex-wrap items-center gap-2.5">
+                <div className="pt-2 flex flex-wrap items-center gap-3">
                   <a
                     href="https://wa.me/56990117784?text=Hola,%20deseo%20cotizar%20una%20importaci%C3%B3n%20grupal%20desde%20China"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2.5 rounded-lg font-bold text-xs sm:text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs flex items-center gap-2 transition active:scale-95"
+                    className="px-4 py-2 rounded-lg font-bold text-xs sm:text-sm bg-nae-red hover:bg-red-700 text-white shadow-xs flex items-center gap-2 transition active:scale-95"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    WhatsApp +56 9 9011 7784
+                    Cotizar por WhatsApp (+56 9 9011 7784)
                   </a>
                   <a
-                    href="#como-funciona"
-                    className="px-4 py-2.5 rounded-lg font-semibold text-xs sm:text-sm text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-100 border border-slate-300 shadow-2xs transition"
+                    href="#contacto"
+                    className="px-4 py-2 rounded-lg font-semibold text-xs sm:text-sm text-white hover:bg-white/10 border border-white/40 transition"
                   >
-                    Ver Cómo Funciona
+                    Formulario Web
                   </a>
                 </div>
 
-                {/* Micro guarantees */}
-                <div className="pt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-600 font-medium">
+                {/* Sub-features */}
+                <div className="pt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-slate-200">
                   <span className="flex items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-sky-400" />
                     DIN formal a tu nombre
                   </span>
                   <span className="flex items-center gap-1">
-                    <Box className="w-3.5 h-3.5 text-blue-600" />
+                    <Box className="w-3.5 h-3.5 text-sky-400" />
                     Desde 0.5 CBM
                   </span>
                   <span className="flex items-center gap-1">
-                    <Anchor className="w-3.5 h-3.5 text-blue-600" />
+                    <Anchor className="w-3.5 h-3.5 text-sky-400" />
                     Bodegas Ningbo & Guangzhou
                   </span>
                 </div>
@@ -118,29 +119,29 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ slides }) => {
       {/* Navigation Arrows */}
       <button
         onClick={handlePrev}
-        className="absolute left-3 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-white/80 hover:bg-white text-slate-800 border border-slate-300 shadow-sm transition hover:scale-105 active:scale-95"
+        className="absolute left-3 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-black/30 hover:bg-black/60 text-white border border-white/20 transition hover:scale-105 active:scale-95"
         aria-label="Slide anterior"
       >
         <ChevronLeft className="w-4 h-4" />
       </button>
       <button
         onClick={handleNext}
-        className="absolute right-3 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-white/80 hover:bg-white text-slate-800 border border-slate-300 shadow-sm transition hover:scale-105 active:scale-95"
+        className="absolute right-3 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-black/30 hover:bg-black/60 text-white border border-white/20 transition hover:scale-105 active:scale-95"
         aria-label="Siguiente slide"
       >
         <ChevronRight className="w-4 h-4" />
       </button>
 
       {/* Slide Indicators / Dots */}
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3 py-1 rounded-full border border-slate-200 shadow-2xs">
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1.5 bg-black/30 backdrop-blur-xs px-2.5 py-1 rounded-full border border-white/10">
         {activeSlides.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrentIndex(idx)}
             className={`transition-all duration-300 rounded-full ${
               idx === currentIndex
-                ? 'w-5 h-1.5 bg-blue-600'
-                : 'w-1.5 h-1.5 bg-slate-300 hover:bg-slate-400'
+                ? 'w-5 h-1.5 bg-white'
+                : 'w-1.5 h-1.5 bg-white/50 hover:bg-white/80'
             }`}
             aria-label={`Ir al slide ${idx + 1}`}
           />

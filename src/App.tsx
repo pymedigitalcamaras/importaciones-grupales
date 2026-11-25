@@ -5,11 +5,9 @@ import { HowItWorks } from './components/HowItWorks';
 import { ValueProposition } from './components/ValueProposition';
 import { CbmCalculator } from './components/CbmCalculator';
 import { DeparturesSchedule } from './components/DeparturesSchedule';
-import { MarketResearchSection } from './components/MarketResearchSection';
-import { QuoteContactForm } from './components/QuoteContactForm';
+import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { AdminPanel } from './components/AdminPanel';
-import { BibliographyModal } from './components/BibliographyModal';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { SlideItem } from './types';
 import { fetchSlides, defaultSlides } from './lib/supabase';
@@ -17,7 +15,6 @@ import { fetchSlides, defaultSlides } from './lib/supabase';
 export function App() {
   const [slides, setSlides] = useState<SlideItem[]>(defaultSlides);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
-  const [isBibliographyOpen, setIsBibliographyOpen] = useState(false);
   const [prefilledCbm, setPrefilledCbm] = useState<string>('');
   const [prefilledDetails, setPrefilledDetails] = useState<string>('');
 
@@ -35,19 +32,18 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-800 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
-      {/* Navigation Bar with direct Phone / WhatsApp */}
+    <div className="min-h-screen bg-white text-slate-800 flex flex-col font-sans selection:bg-nae-blue selection:text-white">
+      {/* Navigation Bar (No top gray line, NAE style) */}
       <Navbar
         onOpenAdmin={() => setIsAdminOpen(true)}
-        onOpenBibliography={() => setIsBibliographyOpen(true)}
       />
 
       {/* Main Content */}
       <main className="flex-1">
-        {/* Full-width Hero Slider (less tall, natural daylight images) */}
+        {/* Full-width Hero Slider with NAE Message Overlay & Daylight Images */}
         <HeroSlider slides={slides} />
 
-        {/* How it works (immediately visible header below slider) */}
+        {/* How it works */}
         <HowItWorks />
 
         {/* Benefits & Value Proposition */}
@@ -59,11 +55,8 @@ export function App() {
         {/* Scheduled Sailings Calendar */}
         <DeparturesSchedule />
 
-        {/* Market Research & Benchmarking Section */}
-        <MarketResearchSection onOpenBibliographyModal={() => setIsBibliographyOpen(true)} />
-
-        {/* Contact & Quote Form saving to Supabase */}
-        <QuoteContactForm
+        {/* Dedicated Contact Form */}
+        <ContactSection
           initialCbm={prefilledCbm}
           initialDetails={prefilledDetails}
         />
@@ -72,7 +65,6 @@ export function App() {
       {/* Site Footer */}
       <Footer
         onOpenAdmin={() => setIsAdminOpen(true)}
-        onOpenBibliography={() => setIsBibliographyOpen(true)}
       />
 
       {/* Floating WhatsApp Action Button (+56 9 9011 7784) */}
@@ -84,12 +76,6 @@ export function App() {
         onClose={() => setIsAdminOpen(false)}
         slides={slides}
         onSlidesUpdated={(newSlides) => setSlides(newSlides)}
-      />
-
-      {/* Bibliography & Web Sources Modal */}
-      <BibliographyModal
-        isOpen={isBibliographyOpen}
-        onClose={() => setIsBibliographyOpen(false)}
       />
     </div>
   );
