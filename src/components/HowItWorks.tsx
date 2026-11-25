@@ -41,7 +41,7 @@ export const HowItWorks: React.FC = () => {
   ];
 
   return (
-    <section id="como-funciona" className="py-12 lg:py-16 bg-white border-b border-nae-border">
+    <section id="como-funciona" className="pt-20 sm:pt-28 pb-16 lg:pb-24 bg-white border-b border-nae-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center text-center mb-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-nae-blue border border-nae-border mb-2">

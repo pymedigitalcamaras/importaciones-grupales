@@ -6,44 +6,54 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishabl
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-// Fallback initial slides (natural, bright daylight logistics)
+// 4 NAE-style daylight slides
 export const defaultSlides: SlideItem[] = [
   {
     id: 1,
-    title: "Importaciones Grupales desde China",
-    subtitle: "Comparte contenedor marítimo (LCL), reduce costos logísticos hasta un 70% y accede a tarifas mayoristas sin importar tu volumen.",
-    tag: "LOGÍSTICA COLABORATIVA",
-    image_url: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=2000&q=80",
-    cta_text: "Cotizar por WhatsApp",
-    cta_link: "https://wa.me/56990117784?text=Hola,%20deseo%20cotizar%20una%20importaci%C3%B3n%20grupal%20desde%20China",
+    title: "GRUPO IMPORTA — La primera plataforma de importaciones grupales y contenedor compartido desde China.",
+    subtitle: "Consolida tus compras de múltiples fábricas en origen, comparte flete marítimo LCL y accede a tarifas mayoristas sin importar tu volumen.",
+    tag: "SOMOS ESPECIALISTAS · CHINA",
+    image_url: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=80",
+    cta_text: "Conoce la plataforma",
+    cta_link: "#como-funciona",
     order_index: 1,
     is_active: true
   },
   {
     id: 2,
-    title: "Bodegas de Consolidación en Ningbo y Guangzhou",
-    subtitle: "Recibimos compras de múltiples proveedores de Alibaba, verificamos empaques y unificamos todo en un solo embarque.",
-    tag: "CONSOLIDACIÓN INTELIGENTE",
-    image_url: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=80",
-    cta_text: "Ver Cómo Funciona",
-    cta_link: "#como-funciona",
+    title: "Bodegas propias en Ningbo y Guangzhou para consolidar y cuidar tu carga.",
+    subtitle: "No pagues fletes individuales caros. Agrupamos tus compras de Alibaba, 1688 o fábricas chinas en un solo embarque seguro y ordenado.",
+    tag: "CONSOLIDACIÓN INTELIGENTE · ORIGEN",
+    image_url: "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=2000&q=80",
+    cta_text: "Calculadora de Cubicaje",
+    cta_link: "#calculadora",
     order_index: 2,
     is_active: true
   },
   {
     id: 3,
-    title: "Despacho Aduanero y Formalidad Tributaria",
-    subtitle: "Importa 100% legal a nombre de tu empresa: Declaración de Ingreso (DIN), Bill of Lading (B/L) y uso de crédito fiscal.",
-    tag: "100% LEGAL & TRANSPARENTE",
-    image_url: "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=2000&q=80",
-    cta_text: "Próximos Zarpes",
+    title: "Importa 100% legal: Declaración de Ingreso (DIN) y B/L a nombre de tu empresa.",
+    subtitle: "Aprovecha el arancel 0% del Tratado de Libre Comercio con Certificado de Origen Form F y recupera el 19% del IVA crédito fiscal.",
+    tag: "SEGURIDAD TRIBUTARIA · DIN & B/L",
+    image_url: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=2000&q=80",
+    cta_text: "Ver Próximos Zarpes",
     cta_link: "#zarpes",
     order_index: 3,
+    is_active: true
+  },
+  {
+    id: 4,
+    title: "Desde las fábricas de China hasta la puerta de tu negocio en todo Chile.",
+    subtitle: "Inspección de bultos en origen, tránsito marítimo programado, desaduanaje profesional y despacho directo sin intermediarios informales.",
+    tag: "LOGÍSTICA INTEGRAL · PUERTA A PUERTA",
+    image_url: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=2000&q=80",
+    cta_text: "Cotizar mi Carga",
+    cta_link: "#contacto",
+    order_index: 4,
     is_active: true
   }
 ];
 
-// Helper to fetch slides
 export async function fetchSlides(): Promise<SlideItem[]> {
   try {
     const { data, error } = await supabase
@@ -63,7 +73,6 @@ export async function fetchSlides(): Promise<SlideItem[]> {
   }
 }
 
-// Helper to save/update slide
 export async function saveSlide(slide: Partial<SlideItem>): Promise<SlideItem> {
   try {
     if (slide.id) {
@@ -86,7 +95,6 @@ export async function saveSlide(slide: Partial<SlideItem>): Promise<SlideItem> {
     console.warn("Supabase saveSlide error, saving to localStorage:", err);
   }
 
-  // Local fallback
   const current = await fetchSlides();
   let updated: SlideItem[];
   if (slide.id) {
@@ -97,9 +105,9 @@ export async function saveSlide(slide: Partial<SlideItem>): Promise<SlideItem> {
       title: slide.title || 'Nuevo Slide',
       subtitle: slide.subtitle || '',
       tag: slide.tag || 'DESTACADO',
-      image_url: slide.image_url || 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=2000&q=80',
-      cta_text: slide.cta_text || 'Cotizar por WhatsApp',
-      cta_link: slide.cta_link || 'https://wa.me/56990117784',
+      image_url: slide.image_url || 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=80',
+      cta_text: slide.cta_text || 'Conoce la plataforma',
+      cta_link: slide.cta_link || '#como-funciona',
       order_index: current.length + 1,
       is_active: true
     };
@@ -109,7 +117,6 @@ export async function saveSlide(slide: Partial<SlideItem>): Promise<SlideItem> {
   return updated.find(s => s.id === slide.id) || updated[updated.length - 1];
 }
 
-// Helper to delete slide
 export async function deleteSlide(id: number): Promise<boolean> {
   try {
     const { error } = await supabase
@@ -126,7 +133,6 @@ export async function deleteSlide(id: number): Promise<boolean> {
   return true;
 }
 
-// Helper to submit lead
 export async function submitContactLead(leadData: Omit<Lead, 'id' | 'created_at' | 'estado'>): Promise<{ success: boolean; leadId?: string; error?: string }> {
   const payload = {
     ...leadData,
@@ -160,7 +166,6 @@ export async function submitContactLead(leadData: Omit<Lead, 'id' | 'created_at'
   }
 }
 
-// Helper to fetch leads for admin
 export async function fetchLeads(): Promise<Lead[]> {
   try {
     const { data, error } = await supabase
@@ -178,7 +183,6 @@ export async function fetchLeads(): Promise<Lead[]> {
   return stored ? JSON.parse(stored) : [];
 }
 
-// Helper to update lead status
 export async function updateLeadStatus(id: string, estado: Lead['estado'], notas_admin?: string): Promise<boolean> {
   try {
     const updatePayload: any = { estado };
@@ -194,7 +198,6 @@ export async function updateLeadStatus(id: string, estado: Lead['estado'], notas
     console.warn("Error updating Supabase lead:", err);
   }
 
-  // Local fallback
   const stored = JSON.parse(localStorage.getItem('local_leads') || '[]');
   const updated = stored.map((l: Lead) => l.id === id ? { ...l, estado, notas_admin: notas_admin ?? l.notas_admin } : l);
   localStorage.setItem('local_leads', JSON.stringify(updated));

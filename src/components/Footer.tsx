@@ -46,13 +46,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
                 <MessageCircle className="w-4 h-4 text-emerald-400" />
                 <span>WhatsApp: <strong>{phoneNumber}</strong></span>
               </a>
-              <a 
-                href="tel:+56990117784"
-                className="flex items-center gap-2 hover:text-white transition"
-              >
+              <div className="flex items-center gap-2 text-slate-300">
                 <Phone className="w-4 h-4 text-sky-400" />
-                <span>Celular: <strong>{phoneNumber}</strong></span>
-              </a>
+                <span>Celular: <strong className="select-all text-white">{phoneNumber}</strong></span>
+              </div>
             </div>
           </div>
 

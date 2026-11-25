@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Ship, Calculator, Calendar, Phone, Settings, Menu, X, MessageCircle } from 'lucide-react';
+import { Ship, Globe, User, MessageCircle, Menu, X, ChevronDown } from 'lucide-react';
 
 interface NavbarProps {
   onOpenAdmin: () => void;
@@ -7,97 +7,107 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
   const phoneNumber = "+56 9 9011 7784";
   const whatsappUrl = "https://wa.me/56990117784?text=Hola,%20deseo%20cotizar%20una%20importaci%C3%B3n%20grupal%20desde%20China";
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white border-b border-nae-border shadow-xs">
-      {/* Main Navigation (Clean, NO top gray bar) */}
+    <header className="sticky top-0 z-50 w-full bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-18">
-          {/* Brand Logo */}
-          <a href="#" className="flex items-center space-x-3 group">
-            <div className="w-10 h-10 rounded-lg bg-nae-blue flex items-center justify-center text-white shadow-xs group-hover:bg-nae-dark transition">
-              <Ship className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <span className="text-lg font-black tracking-tight text-nae-dark flex items-center gap-1">
-                GRUPO<span className="text-nae-blue">IMPORTA</span>
-              </span>
-              <span className="block text-[10px] font-bold tracking-wider uppercase text-slate-500">
-                Carga Consolidada LCL China
-              </span>
-            </div>
-          </a>
-
-          {/* Desktop Links */}
-          <nav className="hidden md:flex items-center space-x-7 text-sm font-semibold text-slate-700">
-            <a href="#como-funciona" className="hover:text-nae-blue transition">Cómo Funciona</a>
-            <a href="#beneficios" className="hover:text-nae-blue transition">Ventajas</a>
-            <a href="#calculadora" className="hover:text-nae-blue transition flex items-center gap-1.5">
-              <Calculator className="w-4 h-4 text-nae-blue" />
-              Calculadora CBM
+        <div className="flex items-center justify-between h-16">
+          {/* Brand Oval Logo (NAE Style) */}
+          <div className="flex items-center space-x-6">
+            <a href="#" className="flex items-center group">
+              <div className="h-9 px-4 rounded-full bg-nae-blue text-white font-black tracking-tight text-sm flex items-center justify-center shadow-xs group-hover:bg-nae-dark transition">
+                <span>GRUPO IMPORTA</span>
+              </div>
             </a>
-            <a href="#zarpes" className="hover:text-nae-blue transition flex items-center gap-1.5">
-              <Calendar className="w-4 h-4 text-slate-500" />
-              Próximos Zarpes
-            </a>
-            <a href="#contacto" className="hover:text-nae-blue transition">Contacto</a>
-          </nav>
 
-          {/* Action CTAs */}
-          <div className="hidden md:flex items-center space-x-3">
-            <a
-              href="tel:+56990117784"
-              className="text-xs font-semibold text-slate-700 hover:text-nae-blue flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg hover:bg-slate-50 transition"
-              title="Llamar directo"
-            >
-              <Phone className="w-3.5 h-3.5 text-slate-600" />
+            {/* Desktop Navigation Links */}
+            <nav className="hidden lg:flex items-center space-x-6 text-xs font-semibold text-slate-700">
+              <a href="#como-funciona" className="hover:text-nae-blue transition">Cómo Funciona</a>
+              <a href="#beneficios" className="hover:text-nae-blue transition">Ventajas</a>
+              <a href="#calculadora" className="hover:text-nae-blue transition">Calculadora CBM</a>
+              <a href="#zarpes" className="hover:text-nae-blue transition">Próximos Zarpes</a>
+              <a href="#contacto" className="hover:text-nae-blue transition">Contacto</a>
+            </nav>
+          </div>
+
+          {/* Right Area (Exactly like NAE Screenshot) */}
+          <div className="hidden md:flex items-center space-x-4 text-xs">
+            {/* Green dot: Estamos en línea */}
+            <div className="flex items-center gap-2 px-2 py-1 text-slate-700 font-medium">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span className="text-xs font-medium text-slate-700">Estamos en línea</span>
+            </div>
+
+            {/* PRINTED PHONE (Plain text, NON-CLICKABLE, does not trigger a call dialer) */}
+            <div className="text-xs font-bold text-slate-800 bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200 select-all cursor-default" title="Teléfono de contacto">
               {phoneNumber}
-            </a>
-            
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 rounded-lg text-xs font-bold bg-nae-blue hover:bg-nae-dark text-white shadow-xs flex items-center gap-1.5 transition active:scale-95"
-            >
-              <MessageCircle className="w-3.5 h-3.5" />
-              WhatsApp Directo
-            </a>
+            </div>
 
+            {/* Language Selector Dropdown (ES) */}
+            <div className="relative">
+              <button
+                onClick={() => setLangMenuOpen(!langMenuOpen)}
+                className="flex items-center gap-1 text-slate-700 hover:text-slate-900 font-medium px-2 py-1 rounded-md hover:bg-slate-100 transition"
+              >
+                <Globe className="w-3.5 h-3.5 text-slate-600" />
+                <span>ES</span>
+                <ChevronDown className="w-3 h-3 text-slate-500" />
+              </button>
+
+              {langMenuOpen && (
+                <div className="absolute right-0 mt-2 w-36 bg-white border border-slate-200 rounded-xl shadow-lg py-1.5 z-50 text-xs">
+                  <div className="px-3 py-1.5 font-bold text-slate-900 bg-slate-50">
+                    Español
+                  </div>
+                  <div className="px-3 py-1.5 text-slate-400 flex items-center justify-between">
+                    <span>English</span>
+                    <span className="text-[9px] uppercase tracking-wider font-bold text-slate-400 bg-slate-100 px-1 py-0.2 rounded">Pronto</span>
+                  </div>
+                  <div className="px-3 py-1.5 text-slate-400 flex items-center justify-between">
+                    <span>中文</span>
+                    <span className="text-[9px] uppercase tracking-wider font-bold text-slate-400 bg-slate-100 px-1 py-0.2 rounded">Pronto</span>
+                  </div>
+                  <div className="px-3 py-1.5 text-slate-400 flex items-center justify-between">
+                    <span>Português</span>
+                    <span className="text-[9px] uppercase tracking-wider font-bold text-slate-400 bg-slate-100 px-1 py-0.2 rounded">Pronto</span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Ingresar / Admin Button */}
             <button
               onClick={onOpenAdmin}
-              className="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 border border-nae-border transition"
-              title="Panel de Administración"
+              className="flex items-center gap-1.5 font-semibold text-slate-700 hover:text-nae-blue transition px-2 py-1"
             >
-              <Settings className="w-4 h-4" />
+              <User className="w-3.5 h-3.5" />
+              <span>Ingresar</span>
             </button>
           </div>
 
           {/* Mobile menu button */}
           <div className="flex md:hidden items-center space-x-2">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg text-emerald-600 hover:bg-emerald-50 border border-emerald-200"
-              title="WhatsApp"
-            >
-              <MessageCircle className="w-5 h-5" />
-            </a>
+            <span className="text-xs font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 select-all">
+              {phoneNumber}
+            </span>
             <button
               onClick={onOpenAdmin}
-              className="p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-nae-border transition"
-              title="Panel Admin"
+              className="p-1.5 rounded-md text-slate-600 hover:bg-slate-100"
+              title="Ingresar Admin"
             >
-              <Settings className="w-4 h-4" />
+              <User className="w-4 h-4" />
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100"
+              className="p-1.5 rounded-md text-slate-700 hover:bg-slate-100"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -105,53 +115,45 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin }) => {
 
       {/* Mobile dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-nae-border bg-white px-4 pt-3 pb-6 space-y-3 shadow-lg">
+        <div className="md:hidden border-b border-slate-200 bg-white px-4 pt-3 pb-5 space-y-2.5 shadow-lg text-sm">
           <a
             href="#como-funciona"
             onClick={() => setMobileMenuOpen(false)}
-            className="block text-base font-semibold text-slate-800 hover:text-nae-blue py-1"
+            className="block font-semibold text-slate-800 hover:text-nae-blue py-1"
           >
             Cómo Funciona
           </a>
           <a
             href="#beneficios"
             onClick={() => setMobileMenuOpen(false)}
-            className="block text-base font-semibold text-slate-800 hover:text-nae-blue py-1"
+            className="block font-semibold text-slate-800 hover:text-nae-blue py-1"
           >
             Ventajas & Legalidad
           </a>
           <a
             href="#calculadora"
             onClick={() => setMobileMenuOpen(false)}
-            className="block text-base font-semibold text-slate-800 hover:text-nae-blue py-1"
+            className="block font-semibold text-slate-800 hover:text-nae-blue py-1"
           >
             Calculadora CBM
           </a>
           <a
             href="#zarpes"
             onClick={() => setMobileMenuOpen(false)}
-            className="block text-base font-semibold text-slate-800 hover:text-nae-blue py-1"
+            className="block font-semibold text-slate-800 hover:text-nae-blue py-1"
           >
             Próximos Zarpes
           </a>
           <a
             href="#contacto"
             onClick={() => setMobileMenuOpen(false)}
-            className="block text-base font-semibold text-slate-800 hover:text-nae-blue py-1"
+            className="block font-semibold text-slate-800 hover:text-nae-blue py-1"
           >
             Formulario de Contacto
           </a>
-          <div className="pt-2 space-y-2">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-bold bg-nae-blue hover:bg-nae-dark text-white"
-            >
-              <MessageCircle className="w-4 h-4" />
-              WhatsApp Directo: {phoneNumber}
-            </a>
+          <div className="pt-2 border-t border-slate-100">
+            <span className="block text-xs text-slate-500 font-medium">Celular de contacto directo:</span>
+            <span className="block text-sm font-bold text-slate-900 select-all py-1">{phoneNumber}</span>
           </div>
         </div>
       )}

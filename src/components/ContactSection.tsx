@@ -100,23 +100,20 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialCbm, init
                 </span>
               </a>
 
-              <a
-                href="tel:+56990117784"
-                className="p-3.5 rounded-lg bg-slate-50 border border-nae-border flex items-center justify-between hover:bg-slate-100 transition group"
-              >
+              <div className="p-3.5 rounded-lg bg-slate-50 border border-nae-border flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-md bg-nae-blue text-white flex items-center justify-center shadow-2xs">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-[11px] font-bold uppercase text-slate-500 block">Llamada Telefónica</span>
-                    <span className="text-xs font-extrabold text-slate-900">{phoneNumber}</span>
+                    <span className="text-[11px] font-bold uppercase text-slate-500 block">Celular de Contacto</span>
+                    <span className="text-xs font-extrabold text-slate-900 select-all">{phoneNumber}</span>
                   </div>
                 </div>
-                <span className="text-xs font-bold text-nae-blue group-hover:translate-x-0.5 transition-transform">
-                  Llamar →
+                <span className="text-xs font-semibold text-slate-500 bg-white px-2.5 py-1 rounded border border-slate-200 select-all">
+                  Solo mensaje o WhatsApp
                 </span>
-              </a>
+              </div>
             </div>
 
             <div className="pt-2 text-xs text-slate-500 space-y-1">
