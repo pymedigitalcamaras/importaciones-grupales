@@ -46,27 +46,27 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ slides }) => {
             <div
               key={slide.id}
               className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
               }`}
             >
-              {/* Clean Daylight Industrial Photography (No artificial sunlight/flares) */}
+              {/* Clean Daylight Industrial Photography (Absolute background) */}
               <img
                 src={slide.image_url}
                 alt={slide.title}
-                className="w-full h-full object-cover object-center"
+                className="absolute inset-0 w-full h-full object-cover object-center"
               />
               
-              {/* NAE Platform Navy Gradient Overlay */}
+              {/* NAE Platform Navy Gradient Overlay (Absolute z-10) */}
               <div 
-                className="absolute inset-0" 
+                className="absolute inset-0 z-10" 
                 style={{
                   background: 'linear-gradient(90deg, rgba(7,42,66,.88) 0%, rgba(7,42,66,.65) 55%, rgba(7,42,66,.2) 100%)'
                 }}
               />
               
-              {/* Slide Content (Exact NAE Layout) */}
-              <div className="relative z-20 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center pb-12">
-                <div className="max-w-3xl text-left space-y-3 sm:space-y-4">
+              {/* Slide Content (Absolute z-20 centered over background) */}
+              <div className="absolute inset-0 z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center pb-12 pointer-events-none">
+                <div className="max-w-3xl text-left space-y-3 sm:space-y-4 pointer-events-auto">
                   {slide.tag && (
                     <div className="text-[11px] sm:text-xs font-bold tracking-widest uppercase text-slate-200">
                       {slide.tag}
