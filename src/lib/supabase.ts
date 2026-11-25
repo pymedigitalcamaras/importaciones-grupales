@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { Lead, SlideItem } from '../types';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://qkjcncwdrsrsddqtottx.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFramNuY3dkcnNyc2RkcXRvdHR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMwMjg0NzEsImV4cCI6MjEwODYwNDQ3MX0.IAhHq_tS0aLgi2Rm5AZDbjVnx-qkczM0KaHtbGWIYmY';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_ddHAG4qrHbySeEYvE8VlKQ_ZShpsZgM';
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
