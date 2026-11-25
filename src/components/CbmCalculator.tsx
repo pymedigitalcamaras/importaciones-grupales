@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calculator, ArrowRight, Info, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Calculator, ArrowRight, Info, AlertCircle, MessageCircle } from 'lucide-react';
 
 interface CbmCalculatorProps {
   onApplyCbm: (cbm: string, details: string) => void;
@@ -17,19 +17,16 @@ export const CbmCalculator: React.FC<CbmCalculatorProps> = ({ onApplyCbm }) => {
   const totalVolumeCbm = Number((boxVolumeM3 * boxes).toFixed(2));
   const totalWeightKg = boxes * weightPerBox;
 
-  // 1 CBM = 500 kg rule (Industry standard: WS Cargo & Komex)
+  // 1 CBM = 500 kg rule (Industry standard)
   const volumetricWeightEquivalentCbm = Number((totalWeightKg / 500).toFixed(2));
   const billableCbm = Math.max(totalVolumeCbm, volumetricWeightEquivalentCbm, 0.5);
   const isWeightHeavy = volumetricWeightEquivalentCbm > totalVolumeCbm;
 
-  // Estimated indicative rates in USD (for illustration)
-  // 1-2 CBM: ~$320/CBM, 3-5 CBM: ~$290/CBM, >5 CBM: ~$260/CBM
   let estimatedRatePerCbm = 320;
   if (billableCbm >= 5) estimatedRatePerCbm = 260;
   else if (billableCbm >= 3) estimatedRatePerCbm = 290;
 
   const estimatedFreightUsd = Math.round(billableCbm * estimatedRatePerCbm);
-  // Air comparison (~$9 USD/kg courier)
   const estimatedAirCostUsd = Math.round(totalWeightKg * 9);
   const savingsUsd = Math.max(0, estimatedAirCostUsd - estimatedFreightUsd);
 
@@ -42,32 +39,36 @@ export const CbmCalculator: React.FC<CbmCalculatorProps> = ({ onApplyCbm }) => {
     }
   };
 
+  const whatsappQuoteUrl = `https://wa.me/56990117784?text=${encodeURIComponent(
+    `Hola, coticé en la web: ${billableCbm} CBM (${boxes} cajas de ${length}x${width}x${height}cm, ${totalWeightKg}kg). ¿Cuál es la tarifa para el próximo zarpe?`
+  )}`;
+
   return (
-    <section id="calculadora" className="py-16 bg-slate-900/50 border-b border-slate-800">
+    <section id="calculadora" className="py-14 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
-            Herramienta Interactiva
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <span className="text-xs font-bold uppercase tracking-widest text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-300">
+            Herramienta Práctica
           </span>
-          <h2 className="mt-3 text-3xl font-black text-white tracking-tight">
+          <h2 className="mt-3 text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
             Calculadora de Volumen (CBM) y Ahorro Logístico
           </h2>
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-slate-600">
             En transporte marítimo LCL se cobra por metro cúbico ($CBM$). Ingresa las medidas de tus cajas y compara cuánto ahorras compartiendo contenedor.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Inputs Column */}
-          <div className="lg:col-span-7 bg-slate-950 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2">
-              <Calculator className="w-5 h-5 text-blue-400" />
+          <div className="lg:col-span-7 bg-slate-50 border border-slate-200 rounded-xl p-6 sm:p-7 space-y-5">
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <Calculator className="w-5 h-5 text-blue-600" />
               Dimensiones de tus Bultos / Cajas
             </h3>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-3">
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">
+                <label className="block text-xs font-medium text-slate-700 mb-1">
                   Largo (cm)
                 </label>
                 <input
@@ -75,12 +76,12 @@ export const CbmCalculator: React.FC<CbmCalculatorProps> = ({ onApplyCbm }) => {
                   min="1"
                   value={length}
                   onChange={(e) => setLength(Math.max(1, Number(e.target.value)))}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-medium focus:border-blue-500 focus:outline-none"
+                  className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-slate-900 font-semibold focus:border-blue-500 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">
+                <label className="block text-xs font-medium text-slate-700 mb-1">
                   Ancho (cm)
                 </label>
                 <input
@@ -88,12 +89,12 @@ export const CbmCalculator: React.FC<CbmCalculatorProps> = ({ onApplyCbm }) => {
                   min="1"
                   value={width}
                   onChange={(e) => setWidth(Math.max(1, Number(e.target.value)))}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-medium focus:border-blue-500 focus:outline-none"
+                  className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-slate-900 font-semibold focus:border-blue-500 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">
+                <label className="block text-xs font-medium text-slate-700 mb-1">
                   Alto (cm)
                 </label>
                 <input
@@ -101,14 +102,14 @@ export const CbmCalculator: React.FC<CbmCalculatorProps> = ({ onApplyCbm }) => {
                   min="1"
                   value={height}
                   onChange={(e) => setHeight(Math.max(1, Number(e.target.value)))}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-medium focus:border-blue-500 focus:outline-none"
+                  className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-slate-900 font-semibold focus:border-blue-500 focus:outline-none"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">
+                <label className="block text-xs font-medium text-slate-700 mb-1">
                   Cantidad de Cajas
                 </label>
                 <input
@@ -116,12 +117,12 @@ export const CbmCalculator: React.FC<CbmCalculatorProps> = ({ onApplyCbm }) => {
                   min="1"
                   value={boxes}
                   onChange={(e) => setBoxes(Math.max(1, Number(e.target.value)))}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-medium focus:border-blue-500 focus:outline-none"
+                  className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-slate-900 font-semibold focus:border-blue-500 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">
+                <label className="block text-xs font-medium text-slate-700 mb-1">
                   Peso por Caja (kg)
                 </label>
                 <input
@@ -130,72 +131,84 @@ export const CbmCalculator: React.FC<CbmCalculatorProps> = ({ onApplyCbm }) => {
                   step="0.5"
                   value={weightPerBox}
                   onChange={(e) => setWeightPerBox(Math.max(0.1, Number(e.target.value)))}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-medium focus:border-blue-500 focus:outline-none"
+                  className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-slate-900 font-semibold focus:border-blue-500 focus:outline-none"
                 />
               </div>
             </div>
 
             {/* Note on weight ratio */}
-            <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-400 space-y-1">
-              <div className="flex items-center gap-1.5 font-medium text-slate-300">
-                <Info className="w-4 h-4 text-blue-400" />
-                <span>Regla Estándar de la Industria Marítima: 1 m³ = 500 kg</span>
+            <div className="p-3 rounded-lg bg-white border border-slate-200 text-xs text-slate-600 space-y-1">
+              <div className="flex items-center gap-1.5 font-semibold text-slate-800">
+                <Info className="w-4 h-4 text-blue-600" />
+                <span>Regla Marítima Estándar: 1 m³ = 500 kg</span>
               </div>
               <p>
-                Si el peso de la mercancía supera los 500 kg por cada m³, se factura el equivalente en peso volumétrico según las prácticas de navieras y forwarders.
+                Si el peso de la carga supera los 500 kg por cada metro cúbico, se factura el peso volumétrico equivalente.
               </p>
             </div>
           </div>
 
           {/* Results Summary Box */}
-          <div className="lg:col-span-5 bg-gradient-to-b from-slate-900 to-slate-950 border border-blue-500/30 rounded-2xl p-6 sm:p-8 space-y-6 shadow-xl shadow-blue-950/20">
-            <h3 className="text-lg font-bold text-white">
-              Resumen del Embarque
+          <div className="lg:col-span-5 bg-white border border-slate-300 rounded-xl p-6 sm:p-7 space-y-5 shadow-sm">
+            <h3 className="text-base font-bold text-slate-900 border-b border-slate-100 pb-2">
+              Resumen del Cubicaje
             </h3>
 
-            <div className="space-y-3">
-              <div className="flex justify-between items-center py-2 border-b border-slate-800 text-sm">
-                <span className="text-slate-400">Volumen Real:</span>
-                <span className="font-bold text-white">{totalVolumeCbm} CBM (m³)</span>
+            <div className="space-y-2.5 text-xs">
+              <div className="flex justify-between items-center py-1.5 border-b border-slate-100">
+                <span className="text-slate-600">Volumen Real:</span>
+                <span className="font-bold text-slate-900">{totalVolumeCbm} CBM (m³)</span>
               </div>
 
-              <div className="flex justify-between items-center py-2 border-b border-slate-800 text-sm">
-                <span className="text-slate-400">Peso Total Bruto:</span>
-                <span className="font-bold text-white">{totalWeightKg} kg</span>
+              <div className="flex justify-between items-center py-1.5 border-b border-slate-100">
+                <span className="text-slate-600">Peso Total Bruto:</span>
+                <span className="font-bold text-slate-900">{totalWeightKg} kg</span>
               </div>
 
-              <div className="flex justify-between items-center py-2 border-b border-slate-800 text-sm">
-                <span className="text-slate-400">Cubicaje Facturable:</span>
-                <span className="font-extrabold text-blue-400 text-base">{billableCbm} CBM</span>
+              <div className="flex justify-between items-center py-1.5 border-b border-slate-100">
+                <span className="text-slate-600">Cubicaje Facturable:</span>
+                <span className="font-extrabold text-blue-700 text-sm">{billableCbm} CBM</span>
               </div>
             </div>
 
             {isWeightHeavy && (
-              <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-center gap-2">
+              <div className="p-2 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-center gap-1.5">
                 <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                <span>Tu carga es densa (supera 500kg/m³). Se calcula por peso equivalente.</span>
+                <span>Carga densa (+500kg/m³). Se calcula por peso equivalente.</span>
               </div>
             )}
 
             {/* Estimated freight */}
-            <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+            <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-1.5">
               <div className="flex justify-between items-baseline">
-                <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold">Flete Grupal Estimado:</span>
-                <span className="text-2xl font-black text-emerald-400">~${estimatedFreightUsd} USD</span>
+                <span className="text-xs uppercase tracking-wider text-slate-600 font-semibold">Flete Grupal Estimado:</span>
+                <span className="text-xl font-black text-slate-900">~${estimatedFreightUsd} USD</span>
               </div>
-              <div className="text-[11px] text-slate-400 flex justify-between">
+              <div className="text-[11px] text-slate-600 flex justify-between">
                 <span>Vs. Courier Aéreo (~${estimatedAirCostUsd} USD):</span>
-                <span className="text-emerald-400 font-bold">¡Ahorras ~${savingsUsd} USD!</span>
+                <span className="text-emerald-700 font-bold">¡Ahorras ~${savingsUsd} USD!</span>
               </div>
             </div>
 
-            <button
-              onClick={handleApply}
-              className="w-full py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 transition transform active:scale-95"
-            >
-              Usar este Cubicaje en Cotización
-              <ArrowRight className="w-4 h-4" />
-            </button>
+            <div className="space-y-2">
+              <a
+                href={whatsappQuoteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-2.5 rounded-lg font-bold text-xs bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs flex items-center justify-center gap-2 transition"
+              >
+                <MessageCircle className="w-4 h-4" />
+                Enviar este cálculo a WhatsApp (+56 9 9011 7784)
+              </a>
+
+              <button
+                onClick={handleApply}
+                className="w-full py-2.5 rounded-lg font-semibold text-xs text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-300 flex items-center justify-center gap-1.5 transition"
+              >
+                Traspasar a Formulario Web
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
         </div>
       </div>

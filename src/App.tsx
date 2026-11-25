@@ -10,6 +10,7 @@ import { QuoteContactForm } from './components/QuoteContactForm';
 import { Footer } from './components/Footer';
 import { AdminPanel } from './components/AdminPanel';
 import { BibliographyModal } from './components/BibliographyModal';
+import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { SlideItem } from './types';
 import { fetchSlides, defaultSlides } from './lib/supabase';
 
@@ -21,7 +22,6 @@ export function App() {
   const [prefilledDetails, setPrefilledDetails] = useState<string>('');
 
   useEffect(() => {
-    // Load slides from Supabase / Local storage
     fetchSlides().then((data) => {
       if (data && data.length > 0) {
         setSlides(data);
@@ -35,8 +35,8 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
-      {/* Navigation Bar */}
+    <div className="min-h-screen bg-white text-slate-800 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
+      {/* Navigation Bar with direct Phone / WhatsApp */}
       <Navbar
         onOpenAdmin={() => setIsAdminOpen(true)}
         onOpenBibliography={() => setIsBibliographyOpen(true)}
@@ -44,13 +44,13 @@ export function App() {
 
       {/* Main Content */}
       <main className="flex-1">
-        {/* Full-width Hero Slider with Peek to next section below */}
+        {/* Full-width Hero Slider (less tall, natural daylight images) */}
         <HeroSlider slides={slides} />
 
-        {/* Next Section (Header visible right below the slider fold) */}
+        {/* How it works (immediately visible header below slider) */}
         <HowItWorks />
 
-        {/* Benefits & Value Proposition (Synthesizing WS Cargo, Komex, Contenedor Compartido) */}
+        {/* Benefits & Value Proposition */}
         <ValueProposition />
 
         {/* Interactive Volume CBM & Freight Calculator */}
@@ -62,7 +62,7 @@ export function App() {
         {/* Market Research & Benchmarking Section */}
         <MarketResearchSection onOpenBibliographyModal={() => setIsBibliographyOpen(true)} />
 
-        {/* Interactive Lead / Quote Contact Form */}
+        {/* Contact & Quote Form saving to Supabase */}
         <QuoteContactForm
           initialCbm={prefilledCbm}
           initialDetails={prefilledDetails}
@@ -74,6 +74,9 @@ export function App() {
         onOpenAdmin={() => setIsAdminOpen(true)}
         onOpenBibliography={() => setIsBibliographyOpen(true)}
       />
+
+      {/* Floating WhatsApp Action Button (+56 9 9011 7784) */}
+      <FloatingWhatsApp />
 
       {/* Admin Panel Modal (Leads & Slider Management) */}
       <AdminPanel

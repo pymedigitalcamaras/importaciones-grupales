@@ -1,6 +1,6 @@
 import React from 'react';
-import { ExternalLink, CheckCircle2, BookOpen, Layers, Award } from 'lucide-react';
-import { competitorsData, bibliographySources } from '../data/competitors';
+import { ExternalLink, BookOpen, Award } from 'lucide-react';
+import { competitorsData } from '../data/competitors';
 
 interface MarketResearchSectionProps {
   onOpenBibliographyModal: () => void;
@@ -8,64 +8,64 @@ interface MarketResearchSectionProps {
 
 export const MarketResearchSection: React.FC<MarketResearchSectionProps> = ({ onOpenBibliographyModal }) => {
   return (
-    <section id="investigacion" className="py-16 lg:py-24 bg-slate-900 border-b border-slate-800">
+    <section id="investigacion" className="py-14 lg:py-20 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div className="max-w-3xl">
-            <span className="text-xs font-bold uppercase tracking-widest text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-700 bg-blue-100/70 px-3 py-1 rounded-full border border-blue-200">
               Benchmarking & Transparencia
             </span>
-            <h2 className="mt-3 text-3xl sm:text-4xl font-black text-white tracking-tight">
+            <h2 className="mt-3 text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               Investigación de Mercado & Fuentes de Inspiración
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-slate-400 leading-relaxed">
-              Para construir nuestra propuesta de valor analizamos a fondo los tres principales actores de importaciones grupales y consolidados de China hacia Latinoamérica, sintetizando sus mayores fortalezas y perfeccionando sus puntos débiles.
+            <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+              Analizamos a los tres principales actores de importaciones grupales de China hacia Chile y Latinoamérica para ofrecerte las mejores prácticas consolidadas en una sola plataforma.
             </p>
           </div>
 
           <button
             onClick={onOpenBibliographyModal}
-            className="self-start md:self-auto px-4 py-2.5 rounded-xl text-xs font-bold bg-blue-600/20 text-blue-300 border border-blue-500/30 hover:bg-blue-600/30 flex items-center gap-2 transition"
+            className="self-start md:self-auto px-4 py-2 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300 flex items-center gap-1.5 transition"
           >
-            <BookOpen className="w-4 h-4" />
-            Ver Bibliografía Completa y URLs
+            <BookOpen className="w-4 h-4 text-blue-600" />
+            Ver Bibliografía y Enlaces
           </button>
         </div>
 
         {/* 3 Benchmark Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           {competitorsData.map((actor, idx) => (
             <div
               key={idx}
-              className="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition"
+              className="bg-slate-50 border border-slate-200 rounded-xl p-5 flex flex-col justify-between hover:border-slate-300 transition"
             >
               <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                     Actor #{idx + 1}
                   </span>
                   <a
                     href={actor.url.split(' ')[0]}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1 font-medium"
+                    className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1 font-semibold"
                   >
                     Visitar sitio
                     <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>
 
-                <h3 className="text-xl font-black text-white mb-1">
+                <h3 className="text-lg font-bold text-slate-900 mb-0.5">
                   {actor.name}
                 </h3>
-                <span className="text-xs text-slate-400 block mb-4 font-mono">
+                <span className="text-xs text-slate-500 block mb-3 font-mono">
                   {actor.country}
                 </span>
 
-                <div className="space-y-4 text-xs text-slate-300 mb-6">
+                <div className="space-y-3 text-xs text-slate-600 mb-5">
                   <div>
-                    <strong className="text-slate-200 block mb-1">Fortalezas Identificadas:</strong>
-                    <ul className="space-y-1 list-disc list-inside text-slate-400">
+                    <strong className="text-slate-800 block mb-1">Fortalezas Identificadas:</strong>
+                    <ul className="space-y-1 list-disc list-inside text-slate-600">
                       {actor.strengths.slice(0, 3).map((st, i) => (
                         <li key={i}>{st}</li>
                       ))}
@@ -73,21 +73,21 @@ export const MarketResearchSection: React.FC<MarketResearchSectionProps> = ({ on
                   </div>
 
                   <div>
-                    <strong className="text-slate-200 block mb-0.5">Modelo de Cobro:</strong>
-                    <p className="text-slate-400">{actor.pricingModel}</p>
+                    <strong className="text-slate-800 block mb-0.5">Modelo de Cobro:</strong>
+                    <p className="text-slate-600">{actor.pricingModel}</p>
                   </div>
                 </div>
               </div>
 
               {/* What was extracted */}
-              <div className="p-4 rounded-xl bg-blue-950/30 border border-blue-900/50 space-y-1.5">
-                <span className="text-[10px] uppercase font-bold text-blue-400 block tracking-wider">
-                  Lo mejor adoptado en nuestro sitio:
+              <div className="p-3.5 rounded-lg bg-white border border-blue-200 space-y-1">
+                <span className="text-[10px] uppercase font-bold text-blue-700 block tracking-wider">
+                  Mejor práctica adoptada:
                 </span>
-                <p className="text-xs text-blue-100 font-medium">
+                <p className="text-xs text-slate-800 font-medium">
                   {actor.extractedBestPractice}
                 </p>
-                <span className="text-[10px] text-slate-400 block pt-1">
+                <span className="text-[10px] text-slate-500 block pt-0.5">
                   Aplicado en: {actor.appliedSection}
                 </span>
               </div>
@@ -96,18 +96,18 @@ export const MarketResearchSection: React.FC<MarketResearchSectionProps> = ({ on
         </div>
 
         {/* Quick Summary Banner */}
-        <div className="mt-8 p-6 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-7 p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center flex-shrink-0">
-              <Award className="w-5 h-5" />
+            <div className="w-9 h-9 rounded-lg bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center justify-center flex-shrink-0">
+              <Award className="w-4 h-4" />
             </div>
-            <p className="text-xs sm:text-sm text-slate-300">
-              Al combinar <strong>Cubicaje Justo (WS Cargo)</strong> + <strong>Facturación & DIN Legal (Komex)</strong> + <strong>Zarpes & Auditoría (Contenedor Compartido)</strong>, ofrecemos el servicio más seguro y rentable del mercado.
+            <p className="text-xs sm:text-sm text-slate-700">
+              Al combinar <strong>Cubicaje Justo (WS Cargo)</strong> + <strong>DIN y Facturación Legal (Komex)</strong> + <strong>Zarpes y Auditoría (Contenedor Compartido)</strong>, brindamos un servicio seguro, formal y transparente.
             </p>
           </div>
           <button
             onClick={onOpenBibliographyModal}
-            className="text-xs text-slate-300 hover:text-white underline underline-offset-4 whitespace-nowrap"
+            className="text-xs font-semibold text-blue-600 hover:text-blue-800 underline underline-offset-4 whitespace-nowrap"
           >
             Consultar citas bibliográficas (4 fuentes) →
           </button>

@@ -6,25 +6,25 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishabl
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-// Fallback initial slides if network or table is empty
+// Fallback initial slides (natural, bright daylight logistics)
 export const defaultSlides: SlideItem[] = [
   {
     id: 1,
     title: "Importaciones Grupales desde China",
     subtitle: "Comparte contenedor marítimo (LCL), reduce costos logísticos hasta un 70% y accede a tarifas mayoristas sin importar tu volumen.",
     tag: "LOGÍSTICA COLABORATIVA",
-    image_url: "/images/port_container_terminal_sunset.jpg",
-    cta_text: "Cotizar mi Carga",
-    cta_link: "#cotizador",
+    image_url: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=2000&q=80",
+    cta_text: "Cotizar por WhatsApp",
+    cta_link: "https://wa.me/56990117784?text=Hola,%20deseo%20cotizar%20una%20importaci%C3%B3n%20grupal%20desde%20China",
     order_index: 1,
     is_active: true
   },
   {
     id: 2,
     title: "Bodegas de Consolidación en Ningbo y Guangzhou",
-    subtitle: "Recibimos compras de múltiples proveedores de Alibaba, inspeccionamos calidad y unificamos todo en un solo embarque.",
+    subtitle: "Recibimos compras de múltiples proveedores de Alibaba, verificamos empaques y unificamos todo en un solo embarque.",
     tag: "CONSOLIDACIÓN INTELIGENTE",
-    image_url: "/images/china_consolidation_warehouse.jpg",
+    image_url: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=80",
     cta_text: "Ver Cómo Funciona",
     cta_link: "#como-funciona",
     order_index: 2,
@@ -34,8 +34,8 @@ export const defaultSlides: SlideItem[] = [
     id: 3,
     title: "Despacho Aduanero y Formalidad Tributaria",
     subtitle: "Importa 100% legal a nombre de tu empresa: Declaración de Ingreso (DIN), Bill of Lading (B/L) y uso de crédito fiscal.",
-    tag: "SEGURIDAD & FORMALIDAD",
-    image_url: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=80",
+    tag: "100% LEGAL & TRANSPARENTE",
+    image_url: "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=2000&q=80",
     cta_text: "Próximos Zarpes",
     cta_link: "#zarpes",
     order_index: 3,
@@ -97,9 +97,9 @@ export async function saveSlide(slide: Partial<SlideItem>): Promise<SlideItem> {
       title: slide.title || 'Nuevo Slide',
       subtitle: slide.subtitle || '',
       tag: slide.tag || 'DESTACADO',
-      image_url: slide.image_url || '/images/port_container_terminal_sunset.jpg',
-      cta_text: slide.cta_text || 'Cotizar',
-      cta_link: slide.cta_link || '#cotizador',
+      image_url: slide.image_url || 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=2000&q=80',
+      cta_text: slide.cta_text || 'Cotizar por WhatsApp',
+      cta_link: slide.cta_link || 'https://wa.me/56990117784',
       order_index: current.length + 1,
       is_active: true
     };
